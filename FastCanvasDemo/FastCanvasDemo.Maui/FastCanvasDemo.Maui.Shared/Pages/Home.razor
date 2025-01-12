@@ -1,0 +1,20 @@
+﻿@page "/"
+@using FastCanvas.Library
+@inject IJSRuntime JS
+
+<PageTitle>Home</PageTitle>
+
+<h1>Canvas Demo</h1>
+
+<canvas id="myCanvas" width="500" height="500" style="border:1px solid #000;" tabindex="1" />
+
+@code {
+    private FastCanvas fc = new FastCanvas();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        fc.fillRect(50, 50, 200, 300);
+
+        await JS.InvokeVoidAsync("fastCanvasDraw", "myCanvas", fc.Draw);
+    }
+}
